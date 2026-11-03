@@ -1,0 +1,49 @@
+data:
+  raw_root: data/SEED/raw
+  processed_root: data/SEED/processed
+  window_sec: 1
+  sample_rate: 200
+  session: 1
+  target_subjects: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  target_shot_per_class: [1, 5, 10]
+  src_dataset_split_type: source_random
+  tgt_dataset_split_type: target_per_trial
+
+foundation_model:
+  checkpoint: FoundationModel/labram-base.pth
+
+adapt_src:
+  trainable_layers: 12
+  epochs: 50
+  batch_size: 128
+  warmup_epochs: 5
+  base_lr: 2.0e-4
+  min_lr: 1.0e-6
+  lr_layer_decay: 0.65
+  label_smoothing: 0.1
+  weight_decay: 0.05
+  num_classes: 3
+
+adapt:
+  method: sda_lora
+  sda_lora:
+    adaptsrc_checkpoint: adaptsrc_12
+    transformer_lora_layers: 12
+    num_branches: 3
+    rank: 16
+    alpha: 32
+    lora_dropout: 0.05
+    lora_q: true
+    lora_k: false
+    lora_v: true
+    lora_o: false
+    lambda_orth: 0.1
+    label_smoothing: 0.05
+    lr_layer_decay: 0.65
+    base_lr: 1.0e-4
+    weight_decay: 0.01
+    source_epochs: 10
+    target_steps_per_shot: 100
+    source_batch_size: 128
+    query_batch_size: 128
+    num_classes: 3

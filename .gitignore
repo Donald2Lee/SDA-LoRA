@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.idea/
+.vscode/
+data/
+outputs/
+runs/
+*.pt
+*.pth
+!FoundationModel/labram-base.pth

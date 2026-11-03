@@ -1,0 +1,10 @@
+torch>=2.0
+numpy
+scipy
+mne
+scikit-learn
+PyYAML
+timm>=0.9
+einops
+tqdm
+tensorboard
